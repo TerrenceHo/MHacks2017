@@ -20,6 +20,11 @@ app.post('/api/v1/detection', function(req, res) {
         array.push(characters);
 
       }
+      logo = data.responses[0].logoAnnotations[0].description;
+      if (logo !== "Walmart"){
+        console.log("not a receipt");
+        res.send(error);
+      }
        upc = makeUPC.getUPC(array);
 
       res.send(upc);
