@@ -51,9 +51,10 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('./assets/bg.jpg')} style={styles.backgroundImage} >
-           <FadeInView style={{top: '40%'}}>
+        <Image source={require('./assets/bg1.jpg')} style={styles.backgroundImage} >
+           <FadeInView style={{top: '28%'}}>
              <Text style={styles.text}>GroceryIQ</Text>
+             <Text style={styles.subTitle}>Because it matters what you eat!</Text>
           </FadeInView>
         </Image>
       </View>
@@ -79,6 +80,13 @@ const styles = StyleSheet.create({
     fontSize: 52,
     fontFamily: "Menlo-Italic",
     fontWeight: 'bold'
+  },
+  subTitle: {
+    textAlign: 'center',
+    color: 'white',
+    backgroundColor: 'rgba(0,0,0,0)',
+    fontSize: 26,
+    fontFamily: "Snell Roundhand",
   },
 
 });
