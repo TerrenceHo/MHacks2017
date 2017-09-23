@@ -15,16 +15,16 @@ app.post('/api/v1/detection', function(req, res) {
   gcloud_vision.parseImage(req.body["image_path"], function(error, data){
       if (!error){
       array = [];
-      size = data.responses[0].textAnnotations.length;
+      num_annotations = data.responses[0].textAnnotations.length;
       for (i = 0; i<size; i++){
         characters = data.responses[0].textAnnotations[i].description;
         array.push(characters);
 
       }
-       upc = makeUPC.getUPC(array);
-	for (var item in upc) {
-       	  nutritionApi.UPCtoCal(upc[item],nutritionApi.infoCallback);
-        }
+      upc = makeUPC.getUPC(array);
+	    for (var item in upc) {
+       	nutritionApi.UPCtoCal(upc[item], nutritionApi.infoCallback);
+      }
       res.send(upc);
     }else{
       res.send(error);
