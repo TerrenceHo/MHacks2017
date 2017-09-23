@@ -42,18 +42,19 @@ function parseImage(fileName, callback) {
 
   request.post(options, function(error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log("Success\n", body); 
+      return callback(null, body);
+
 		} else {
       console.error("Error\n", error);
-      console.log("Response", response);
-      console.log("Body", body);
+      return callback(error, null);
     }
   });
   
 
-  return json_obj;
 
 }
+
+
 
 function getTextDetection(fileName) {
   vision.textDetection({ source: { filename: fileName } })

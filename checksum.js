@@ -1,8 +1,8 @@
 function calcCheckSum(number){
 	 digitList = [];
-	 len = number.length;
-	for (i = 0; i<len; i++){
-		digitList.push(+number.charAt(i));
+	 length = number.length;
+	for (j = 0; j<length; j++){
+		digitList.push(+number.charAt(j));
 	}
 	 addOdd = digitList[0] + digitList[2] + digitList[4] + digitList[6] + digitList[8] + digitList[10];
 	 multiplyOdd = addOdd*3;
