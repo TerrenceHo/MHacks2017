@@ -1,4 +1,8 @@
 var request = require('request');
+var fs = require('fs');
+
+var nutritionKeys = fs.readFileSync("nutritionApiKey.key").toString();
+nutritionKeys = nutritionKeys.split(" ");
 
 function infoCallback(name,calories,serving_size) {    
     console.log(name);
@@ -11,12 +15,14 @@ function UPCtoCal(UPCcode, callback) {
     if(UPCcode.length != 12) {
 	console.log("Incorrect UPCcode length");
     }
-
+    
     var options = {
         url: 'https://trackapi.nutritionix.com/v2/search/item?upc=' + UPCcode,
         headers: {
             'User-Agent': 'request',
-        }
+            'x-app-id': nutritionKeys[0],
+	    'x-app-key': nutritionKeys[1]
+	}
     };
     
     var getFromApi = new Promise((resolve, reject) => {
