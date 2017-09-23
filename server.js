@@ -13,17 +13,22 @@ app.use(bodyParser());
 
 app.post('/api/v1/detection', function(req, res) {
   gcloud_vision.parseImage(req.body["image_path"], function(error, data){
-      if (!error){
+    if (!error){
+      logo = data.responses[0].logoAnnotations[0].description;
+      if (logo !== "Walmart"){
+        console.log("not a receipt");
+        res.send(error);
+      }
       array = [];
       num_annotations = data.responses[0].textAnnotations.length;
-      for (i = 0; i<size; i++){
+      for (i = 0; i<num_annotations; i++){
         characters = data.responses[0].textAnnotations[i].description;
-        array.push(characters);
 
+        array.push(characters);
       }
       upc = makeUPC.getUPC(array);
 	    for (var item in upc) {
-       	nutritionApi.UPCtoCal(upc[item], nutritionApi.infoCallback);
+        nutritionApi.UPCtoCal(upc[item],nutritionApi.infoCallback);
       }
       res.send(upc);
     }else{
