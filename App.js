@@ -1,92 +1,27 @@
 import React from 'react';
-import { StyleSheet, Animated, Text, View, Image } from 'react-native';
+import { AppRegistry, Navigator, TouchableOpacity, StyleSheet, Animated, Text, View, Image } from 'react-native';
+import { Button } from 'react-native-elements';
+import TakePicture from './UI/components/TakePicture';
+import Home from './UI/components/Home';
+import NavigationExperimental from 'react-native-deprecated-custom-components';
 
-class FadeInView extends React.Component {
-  state = {
-    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+export default class App extends React.Component{
+  _renderScene(route, navigator) {
+    if(route.id === 1) {
+      return <Home navigator={navigator} />
+    } else if(route.id === 2) {
+      return <TakePicture navigator={navigator} />
+    }
   }
 
-  componentDidMount() {
-    Animated.timing(                  // Animate over time
-      this.state.fadeAnim,            // The animated value to drive
-      {
-        toValue: 1,                   // Animate to opacity: 1 (opaque)
-        duration: 2500,               // Make it take a while 2.5 seconds
-      }
-    ).start();                        // Starts the animation
-  }
-
-  render() {
-    let { fadeAnim } = this.state;
-
-    return (
-      <Animated.View                 // Special animatable View
-        style={{
-          ...this.props.style,
-          opacity: fadeAnim,         // Bind opacity to animated value
-        }}
-      >
-        {this.props.children}
-      </Animated.View>
+  render(){
+    return(
+      <NavigationExperimental.Navigator
+        initialRoute={{id: 1, }}
+        renderScene={this._renderScene} />
     );
   }
+
+  //AppRegistry.registerComponent('App', () => App);
+
 }
-
-export default class App extends React.Component {
-  
-  state = {
-    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
-  }
-
-  componentDidMount() {
-    Animated.timing(                  // Animate over time
-      this.state.fadeAnim,            // The animated value to drive
-      {
-        toValue: 1,                   // Animate to opacity: 1 (opaque)
-        duration: 1000,               // Make it take a while
-      }
-    ).start();                        // Starts the animation
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image source={require('./assets/bg1.jpg')} style={styles.backgroundImage} >
-           <FadeInView style={{top: '26%'}}>
-             <Text style={styles.text}>GroceryIQ</Text>
-             <Text style={styles.subTitle}>Because it matters what you eat!</Text>
-          </FadeInView>
-        </Image>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-  text: {
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'rgba(0,0,0,0)',
-    fontSize: 52,
-    fontFamily: "Menlo-Italic",
-    fontWeight: 'bold'
-  },
-  subTitle: {
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'rgba(0,0,0,0)',
-    fontSize: 26,
-    fontFamily: "Snell Roundhand",
-  },
-
-});
