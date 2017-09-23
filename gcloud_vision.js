@@ -2,26 +2,50 @@
 
 var vision = require('@google-cloud/vision')({
     projectId: 'integreal-bliss-180806',
-    keyFilename: '../key.json'
+    keyFilename: 'key.json'
 });
 
-const fileName = '../images/walmart-receipt.jpg';
+const image_fileName = 'images/walmart-receipt.jpg';
 
-vision.textDetection({ source: { filename: fileName } })
-  .then((results) => {
-    const detections = results[0].textAnnotations;
-    console.log('Text:');
-    detections.forEach((text) => console.log(text));
-  })
-  .catch((err) => {
-    console.error('ERROR:', err);
-  });
+function getTextDetection(fileName) {
+  vision.textDetection({ source: { filename: fileName } })
+    .then((results) => {
+      const detections = results[0].textAnnotations;
+      console.log('Text:');
+      detections.forEach((text) => console.log(text));
+    })
+    .catch((err) => {
+      console.error('ERROR:', err);
+    });
+}
 
+function getLogoDetection(fileName) {
+  vision.logoDetection({ source: {filename: fileName } })
+    .then((results) => {
+      const logos = results[0].logoAnnotations;
+      console.log('Logos:');
+      logos.forEach((logo) => console.log(logo));
+    })
+    .catch((err) =>{
+      console.error('Error:', err);
+    });
+}
 
-// vision.detectFaces('../images/walmart-receipt.jpg', function(err, text){
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log(text)
-//   }
-// });
+function getLabelDetection(fileName) {
+  vision.labelDetection({ source: {filename: fileName } })
+    .then((results) => {
+      const labels = results[0].labelAnnotations;
+      console.log('Labels:');
+      labels.forEach((label) => console.log(label));
+    })
+    .catch((err) => {
+      console.error('Error:', err);
+    });
+}
+
+function testExport(){
+  console.log("Export Success");
+}
+
+// Exports
+module.exports.testExport = testExport;
