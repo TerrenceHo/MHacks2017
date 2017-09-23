@@ -1,4 +1,4 @@
-function getLastDigit(number){
+function calcCheckSum(number){
 	 digitList = [];
 	 len = number.length;
 	for (i = 0; i<len; i++){
@@ -15,4 +15,7 @@ function getLastDigit(number){
 	return lastDigit; 
 }
 
-console.log(getLastDigit("12345678912"));
+// console.log(getLastDigit("00000004889"));
+
+//export 
+module.exports.calcCheckSum = calcCheckSum;
