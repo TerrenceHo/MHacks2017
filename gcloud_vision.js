@@ -1,11 +1,59 @@
 'use strict';
-
-var vision = require('@google-cloud/vision')({
+const request = require('request');
+const vision = require('@google-cloud/vision')({
     projectId: 'integreal-bliss-180806',
     keyFilename: 'key.json'
 });
 
-const image_fileName = 'images/walmart-receipt.jpg';
+
+function parseImage(fileName, callback) {
+  var req_obj = {};
+  req_obj['requests'] = [];
+
+  var image = {
+    source: {
+      image_uri: fileName
+    }
+  };
+
+  var features = []
+  var type_list = ['LOGO_DETECTION', 'LABEL_DETECTION', 'TEXT_DETECTION', 'WEB_DETECTION'];
+  for (var i = 0; i < type_list.length; i++) {
+    var type_data = {
+      type: type_list[i]
+    };
+    features.push(type_data);
+  }
+  req_obj['requests'].push({
+    image: image,
+    features: features
+  });
+  var json_obj = JSON.stringify(req_obj);
+
+	const options = {
+		url: 'https://vision.googleapis.com/v1/images:annotate',
+    qs: {
+      key:"AIzaSyCYo9FyDznSq_jUDn7eZlkmL-TmMDHFh3E"
+    },
+    json:{
+      requests: req_obj['requests']
+    }
+	};
+
+  request.post(options, function(error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log("Success\n", body); 
+		} else {
+      console.error("Error\n", error);
+      console.log("Response", response);
+      console.log("Body", body);
+    }
+  });
+  
+
+  return json_obj;
+
+}
 
 function getTextDetection(fileName) {
   vision.textDetection({ source: { filename: fileName } })
@@ -19,15 +67,14 @@ function getTextDetection(fileName) {
     });
 }
 
-function getLogoDetection(fileName) {
+function getLogoDetection(fileName, callback) {
   vision.logoDetection({ source: {filename: fileName } })
     .then((results) => {
-      const logos = results[0].logoAnnotations;
-      console.log('Logos:');
-      logos.forEach((logo) => console.log(logo));
+      callback(results[0].logoAnnotations, null);
     })
     .catch((err) =>{
       console.error('Error:', err);
+      callback(null, err);
     });
 }
 
@@ -37,6 +84,7 @@ function getLabelDetection(fileName) {
       const labels = results[0].labelAnnotations;
       console.log('Labels:');
       labels.forEach((label) => console.log(label));
+      return labels;
     })
     .catch((err) => {
       console.error('Error:', err);
@@ -48,4 +96,9 @@ function testExport(){
 }
 
 // Exports
-module.exports.testExport = testExport;
+module.exports.parseImage = parseImage;
+// module.exports.testExport = testExport;
+// module.exports.getTextDetection = getTextDetection;
+// module.exports.getLogoDetection = getLogoDetection;
+// module.exports.getLabelDetection = getLabelDetection;
+
