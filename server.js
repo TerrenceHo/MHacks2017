@@ -5,6 +5,7 @@ const gcloud_vision = require('./gcloud_vision.js');
 const image_fileName = 'gs://receipts-bucket/walmart-receipt.jpg';
 
 var app = express();
+app.set('port', (process.env.PORT || 8080));
 app.use(bodyParser());
 
 app.post('/api/v1/detection', function(req, res) {
@@ -25,6 +26,7 @@ app.post('/api/v1/detection', function(req, res) {
   // console.log("Checking after");
 });
 
-app.listen(8080);
-console.log('Server Listening at port 8080');
+app.listen(app.get('port'), function() {
+  console.log('Server Listening at port', app.get('port'));
+});
 
