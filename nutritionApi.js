@@ -48,4 +48,4 @@ function UPCtoCal(UPCcode, callback) {
     })
 }
 
-UPCtoCal("721355002067", infoCallback);
+UPCtoCal("885909950652", infoCallback);
