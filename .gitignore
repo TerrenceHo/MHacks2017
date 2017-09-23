@@ -273,3 +273,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,macos,windows,reactnative
+
+test/
+key.json
+*.png
+*.jpg
+*.jpeg
