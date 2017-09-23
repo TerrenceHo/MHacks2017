@@ -52,7 +52,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Image source={require('./assets/bg1.jpg')} style={styles.backgroundImage} >
-           <FadeInView style={{top: '28%'}}>
+           <FadeInView style={{top: '26%'}}>
              <Text style={styles.text}>GroceryIQ</Text>
              <Text style={styles.subTitle}>Because it matters what you eat!</Text>
           </FadeInView>
