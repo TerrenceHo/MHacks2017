@@ -276,6 +276,8 @@ $RECYCLE.BIN/
 
 test/
 key.json
+test.js
 *.png
 *.jpg
 *.jpeg
+

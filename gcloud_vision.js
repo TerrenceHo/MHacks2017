@@ -1,9 +1,9 @@
 'use strict';
 const request = require('request');
-const vision = require('@google-cloud/vision')({
-    projectId: 'integreal-bliss-180806',
-    keyFilename: 'key.json'
-});
+// const vision = require('@google-cloud/vision')({
+//     projectId: 'integreal-bliss-180806',
+//     keyFilename: 'key.json'
+// });
 
 
 function parseImage(fileName, callback) {
@@ -56,50 +56,51 @@ function parseImage(fileName, callback) {
 
 
 
-function getTextDetection(fileName) {
-  vision.textDetection({ source: { filename: fileName } })
-    .then((results) => {
-      const detections = results[0].textAnnotations;
-      console.log('Text:');
-      detections.forEach((text) => console.log(text));
-    })
-    .catch((err) => {
-      console.error('ERROR:', err);
-    });
-}
-
-function getLogoDetection(fileName, callback) {
-  vision.logoDetection({ source: {filename: fileName } })
-    .then((results) => {
-      callback(results[0].logoAnnotations, null);
-    })
-    .catch((err) =>{
-      console.error('Error:', err);
-      callback(null, err);
-    });
-}
-
-function getLabelDetection(fileName) {
-  vision.labelDetection({ source: {filename: fileName } })
-    .then((results) => {
-      const labels = results[0].labelAnnotations;
-      console.log('Labels:');
-      labels.forEach((label) => console.log(label));
-      return labels;
-    })
-    .catch((err) => {
-      console.error('Error:', err);
-    });
-}
-
-function testExport(){
-  console.log("Export Success");
-}
-
 // Exports
 module.exports.parseImage = parseImage;
-// module.exports.testExport = testExport;
-// module.exports.getTextDetection = getTextDetection;
-// module.exports.getLogoDetection = getLogoDetection;
-// module.exports.getLabelDetection = getLabelDetection;
+
+// function getTextDetection(fileName) {
+//   vision.textDetection({ source: { filename: fileName } })
+//     .then((results) => {
+//       const detections = results[0].textAnnotations;
+//       console.log('Text:');
+//       detections.forEach((text) => console.log(text));
+//     })
+//     .catch((err) => {
+//       console.error('ERROR:', err);
+//     });
+// }
+
+// function getLogoDetection(fileName, callback) {
+//   vision.logoDetection({ source: {filename: fileName } })
+//     .then((results) => {
+//       callback(results[0].logoAnnotations, null);
+//     })
+//     .catch((err) =>{
+//       console.error('Error:', err);
+//       callback(null, err);
+//     });
+// }
+
+// function getLabelDetection(fileName) {
+//   vision.labelDetection({ source: {filename: fileName } })
+//     .then((results) => {
+//       const labels = results[0].labelAnnotations;
+//       console.log('Labels:');
+//       labels.forEach((label) => console.log(label));
+//       return labels;
+//     })
+//     .catch((err) => {
+//       console.error('Error:', err);
+//     });
+// }
+
+// function testExport(){
+//   console.log("Export Success");
+// }
+
+// // module.exports.testExport = testExport;
+// // module.exports.getTextDetection = getTextDetection;
+// // module.exports.getLogoDetection = getLogoDetection;
+// // module.exports.getLabelDetection = getLabelDetection;
 

@@ -1,1 +1,1 @@
-web: node checksum.js
+web: node server.js

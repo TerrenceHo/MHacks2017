@@ -7,6 +7,7 @@ const checksum = require('./checksum.js');
 const makeUPC = require('./makeUPC.js');
 
 var app = express();
+app.set('port', (process.env.PORT || 8080));
 app.use(bodyParser());
 
 app.post('/api/v1/detection', function(req, res) {
@@ -28,6 +29,7 @@ app.post('/api/v1/detection', function(req, res) {
   });
 });
 
-app.listen(8080);
-console.log('Server Listening at port 8080');
+app.listen(app.get('port'), function() {
+  console.log('Server Listening at port', app.get('port'));
+});
 
