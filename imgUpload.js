@@ -22,7 +22,8 @@ ImgUpload.uploadToGcs = (req, res, next) => {
 
   // Can optionally add a path to the gcsname below by concatenating it before the filename
   const gcsname = req.file.originalname;
-  const file = bucket.file(gcsname);
+  var file = bucket.file(gcsname);
+  console.log(file);
   file.makePublic().then(() => {
     console.log("Made Public");
   })
