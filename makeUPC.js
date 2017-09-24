@@ -10,7 +10,7 @@ function getUPC(array){
 			if (array[i].length ==14){
 				UPCnum = UPCnum.substring(0, UPCnum.length - 2);
 			}
-			if(reg.test(array[i])){
+			if(reg.test(UPCnum)){
 				lastDigit = getSum.calcCheckSum(UPCnum);
 				fullUPC = UPCnum + lastDigit;
 				UPCarray.push(fullUPC);
@@ -20,6 +20,8 @@ function getUPC(array){
 	}
 	return UPCarray;
 }
+ // console.log(getUPC(["000000004889KF"]));
+
 
 //exports
 module.exports.getUPC = getUPC;
