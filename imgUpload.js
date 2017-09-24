@@ -23,11 +23,19 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   // Can optionally add a path to the gcsname below by concatenating it before the filename
   const gcsname = req.file.originalname;
   console.log("gcsname", gcsname);
-  var file = bucket.file(gcsname);
-  file.makePublic(function(err, apiResponse){
-    console.error("ERROR:", err);
-    console.log("apiResponse", apiResponse);
-  });
+  gcs.bucket(bucketName).file(gcsname).makePublic()
+    .then(() => {
+      console.log("Made Public");
+    })
+    .catch((err) => {
+      console.error("ERROR:", err);
+    });
+
+  // var file = bucket.file(gcsname);
+  // file.makePublic(function(err, apiResponse){
+  //   console.error("ERROR:", err);
+  //   console.log("apiResponse", apiResponse);
+  // });
   // ).then(() => {
   //   console.log("Made Public");
   // })
