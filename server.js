@@ -34,6 +34,7 @@ app.post('/api/v1/detection', function(req, res) {
         array.push(characters);
       }
       upc_array = makeUPC.getUPC(array);
+      console.log(upc_array);
       results = [];
       (function iterate_UPC_array(index) {
         if (index === upc_array.length) {
