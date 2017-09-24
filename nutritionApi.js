@@ -31,6 +31,7 @@ function UPCtoCal(UPCcode, callback) {
           JSONparsed = (JSON.parse(body))["foods"][0];
           resolve(JSONparsed);
 	      } else {
+          console.log("Body on error", body);
           reject(error);
         }
       })
