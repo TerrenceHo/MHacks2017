@@ -18,6 +18,7 @@ function getUPC(array){
 			}
 		}
 	}
+  UPCarray = new Set(UPCarray);
 	return UPCarray;
 }
  // console.log(getUPC(["000000004889KF"]));
