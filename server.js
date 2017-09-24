@@ -19,6 +19,7 @@ const multer = Multer({
 });
 
 app.post('/api/v1/detection', function(req, res) {
+  console.log("First Req", req.body);
   gcloud_vision.parseImage(req.body["image_path"], function(error, data){
     if (!error){
 //      logo = data.responses[0].logoAnnotations[0].description;
@@ -33,6 +34,7 @@ app.post('/api/v1/detection', function(req, res) {
         array.push(characters);
       }
       upc_array = makeUPC.getUPC(array);
+      console.log(upc_array);
       results = [];
       (function iterate_UPC_array(index) {
         if (index === upc_array.length) {
@@ -49,6 +51,7 @@ app.post('/api/v1/detection', function(req, res) {
         })
       })(0);
     }else{
+      console.error("Error on picture", error);
       res.send(error);
     }
   });
