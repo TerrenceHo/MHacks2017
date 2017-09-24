@@ -64,8 +64,8 @@ app.post('/api/v1/upload', multer.single('image'), imgUpload.uploadToGcs, functi
     console.log("ImageURL", data.imageURL);
   }
 
-  console.log("Data2", data);
-  res.send(data)
+  console.log("Data2", data.imageURL);
+  res.send(data.imageURL)
 });
 
 
