@@ -280,4 +280,4 @@ test.js
 *.png
 *.jpg
 *.jpeg
-
+config.json
