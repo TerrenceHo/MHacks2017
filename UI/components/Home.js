@@ -64,11 +64,10 @@ export default class Home extends React.Component {
              <Text style={styles.subTitle}>Because it matters what you eat!</Text>
               <Button
                 onPress={()=>{this.props.navigator.push({id: 2});}}
-                title="Snapshot a Receipt"
+                title="Snapshot a Receipt >>>"
                 buttonStyle={styles.clickButton}
                 color="#fff"
                 backgroundColor='#2acc84'
-                icon={{name: 'camera', type: 'font-awesome'}}
                 fontFamily="Didot-Italic"
                 fontWeight="bold"
                 accessibilityLabel="Learn more about this purple button"
@@ -77,7 +76,7 @@ export default class Home extends React.Component {
         </Image>
       </View>
     );
-    
+
   }
 }
 
@@ -117,3 +116,4 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('Home', () => Home);
+// icon={{name: 'camera', type: 'font-awesome'};
