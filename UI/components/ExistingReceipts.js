@@ -8,10 +8,16 @@ export default class ExistingReceipts extends React.Component{
 		super(props);
 		this.state = {
 			date: '25 sept 2017',
-			imgUrl: 'https://storage.googleapis.com/receipts-bucket/walmart-receipt-grocery.jpg',
+			imgUrl: 'https://storage.googleapis.com/receipts-bucket/walmart-receipt4.jpg',
 			openDetails: false
 		}
 		this._openDetails = this._openDetails.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.imageUrl){
+			this.setState({imgUrl: nextProps.imageUrl});
+		}
 	}
 
 	_openDetails(){
@@ -24,7 +30,7 @@ export default class ExistingReceipts extends React.Component{
 		return(
 			<TouchableOpacity style={styles.receiptBox} onPress={this._openDetails}> 
 				<View >
-					<Image source={{uri: 'https://storage.googleapis.com/receipts-bucket/walmart-receipt-grocery.jpg'}} style={styles.billImg}/>
+					<Image source={{uri: 'https://storage.googleapis.com/receipts-bucket/walmart-receipt4.jpg'}} style={styles.billImg}/>
 					<Text style={styles.existingReceiptText}> 25 Sept 2017 </Text>
 				</View>
 			</TouchableOpacity>

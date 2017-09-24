@@ -36,6 +36,7 @@ export default class ReceiptDisplay extends React.Component{
 	}
 
 	addReceipt(receipt){
+		console.log("rec"+receipt);
 		var tempArr = this.state.receiptsArr;
 		tempArr.push(receipt);
 		this.setState({ receiptsArr: tempArr });
@@ -45,17 +46,19 @@ export default class ReceiptDisplay extends React.Component{
     	this.props.navigator.pop();
 	}
 
-	componentWillMount(){
-	}
 
 	render() {
 		const {date, imgURL, detailsPageOpen } = this.state;
-		
+		const existingLists = this.state.receiptsArr.map((item) => {
+			var v = this.state.id+1;
+			this.setState({id: v});
+			return <ExistingReceipts key={this.state.id+1} openDetailsClicked={this.openDetailsClicked} imageUrl={this.state.imgURL}/>
+		})
 		const detailsNotOpen = ( //crate an array with existingreceipt
 			<ScrollView>
 			  	<ExistingReceipts openDetailsClicked={this.openDetailsClicked}/>
-			  	<ExistingReceipts openDetailsClicked={this.openDetailsClicked}/>
-	   	        <NewReceipt />
+			  	{existingLists}
+	   	        <NewReceipt addReceipt={this.addReceipt} />
 	       	</ScrollView>  
 		);
 
