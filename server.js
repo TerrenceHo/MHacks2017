@@ -23,13 +23,12 @@ app.post('/api/v1/detection', function(req, res) {
       num_annotations = data.responses[0].textAnnotations.length;
       for (i = 0; i<num_annotations; i++){
         characters = data.responses[0].textAnnotations[i].description;
-
         array.push(characters);
       }
-       upc = makeUPC.getUPC(array);
-//	for (var item in upc) {
-       	  nutritionApi.UPCtoCal("070470003139",nutritionApi.infoCallback);
-  //      }
+      upc = makeUPC.getUPC(array);
+	    for (i = 0; i < upc.length; i++){
+       	nutritionApi.UPCtoCal(upc[i], nutritionApi.infoCallback);
+      }
       res.send(upc);
     }else{
       res.send(error);
