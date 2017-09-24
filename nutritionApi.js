@@ -19,8 +19,8 @@ function UPCtoCal(UPCcode, callback) {
     var options = {
       url: 'https://trackapi.nutritionix.com/v2/search/item?upc=' + UPCcode,
       headers: {
-        'x-app-id': "82a893e2",
-        'x-app-key': "801d0fb7505570f6de9c2d7f6f300119"
+        'x-app-id': "bb8316e6",
+        'x-app-key': "c21c16d0368ad6fb5eaa841f2e7fd4a7"
 	    }
 
     };
