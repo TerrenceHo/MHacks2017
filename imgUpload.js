@@ -25,7 +25,7 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   const file = bucket.file(gcsname);
   file.makePublic().then(() => {
     console.log("Made Public");
-  }
+  })
   .catch(err => {
     console.error("ERROR:", err);
   });
