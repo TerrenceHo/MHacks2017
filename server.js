@@ -27,9 +27,10 @@ app.post('/api/v1/detection', function(req, res) {
         array.push(characters);
       }
        upc = makeUPC.getUPC(array);
-//	for (var item in upc) {
-       	  nutritionApi.UPCtoCal("070470003139",nutritionApi.infoCallback);
-  //      }
+
+	 for (i =0; i <upc.length;i++) {
+       	  nutritionApi.UPCtoCal(upc[i],nutritionApi.infoCallback);
+        }
       res.send(upc);
     }else{
       res.send(error);

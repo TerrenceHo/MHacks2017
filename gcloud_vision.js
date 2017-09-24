@@ -49,12 +49,10 @@ function parseImage(fileName, callback) {
       return callback(error, null);
     }
   });
-  
+
 
 
 }
-
-
 
 // Exports
 module.exports.parseImage = parseImage;

@@ -5,10 +5,12 @@ function getUPC(array){
 	UPCarray = [];
 	var reg = new RegExp('^[0-9]+$');
 	for (i = 0; i<len;i++){
-		// console.log(array[i]);
-		if(array[i].length ==12){
+		if(array[i].length ==12 || array[i].length ==14){
+			UPCnum = array[i].substr(1);
+			if (array[i].length ==14){
+				UPCnum = UPCnum.substring(0, UPCnum.length - 2);
+			}
 			if(reg.test(array[i])){
-				UPCnum = array[i].substr(1);
 				lastDigit = getSum.calcCheckSum(UPCnum);
 				fullUPC = UPCnum + lastDigit;
 				UPCarray.push(fullUPC);
@@ -16,7 +18,6 @@ function getUPC(array){
 			}
 		}
 	}
-	// console.log(UPCarray);
 	return UPCarray;
 }
 
