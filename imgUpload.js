@@ -27,10 +27,10 @@ ImgUpload.uploadToGcs = (req, res, next) => {
     includeFiles: true
   };
 
-  bucket.makePublic(opts, function(err, files) {
-    console.error("ERROR:", err);
-    console.log(files);
-  });
+  // bucket.makePublic(opts, function(err, files) {
+  //   console.error("ERROR:", err);
+  //   console.log(files);
+  // });
   
   // gcs.bucket(bucketName).file(gcsname).makePublic()
   //   .then(() => {
