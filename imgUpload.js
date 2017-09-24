@@ -24,12 +24,13 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   const gcsname = req.file.originalname;
   var file = bucket.file(gcsname);
   console.log(file);
-  file.makePublic().then(() => {
-    console.log("Made Public");
-  })
-  .catch(err => {
-    console.error("ERROR:", err);
-  });
+  file.makePublic(function(err, apiResponse){});
+  // ).then(() => {
+  //   console.log("Made Public");
+  // })
+  // .catch(err => {
+  //   console.error("ERROR:", err);
+  // });
 
   console.log(gcsname + ";" + file);
 
