@@ -22,7 +22,18 @@ ImgUpload.uploadToGcs = (req, res, next) => {
 
   // Can optionally add a path to the gcsname below by concatenating it before the filename
   const gcsname = req.file.originalname;
-  const file = bucket.file(gcsname);
+  console.log("gcsname", gcsname);
+  var opts = {
+    includeFiles: true
+  };
+
+  // bucket.makePublic(opts, function(err, files) {
+  //   console.error("ERROR:", err);
+  //   console.log(files);
+  // });
+  
+
+  var file = bucket.file(gcsname);
 
   console.log(gcsname + ";" + file);
 
@@ -31,18 +42,21 @@ ImgUpload.uploadToGcs = (req, res, next) => {
       contentType: req.file.mimetype
     }
   });
+  console.log("Creating Stream");
 
   stream.on('error', (err) => {
+    console.error("Error Stream", err);
     req.file.cloudStorageError = err;
     next(err);
   });
 
 	stream.on('finish', () => {
     req.file.cloudStorageObject = gcsname;
-    req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
+    req.file.cloudStoragePublicURL = getPublicUrl(gcsname);
     next();
   });
 
+  console.log("Ending");
   stream.end(req.file.buffer);
 }
 
