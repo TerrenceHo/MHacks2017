@@ -26,12 +26,6 @@ app.post('/api/v1/detection', function(req, res) {
         array.push(characters);
       }
       upc_array = makeUPC.getUPC(array);
-	    // for (i = 0; i < upc_array.length; i++){
-        // nutritionApi.UPCtoCal(upc_array[i], function(food_data, food_error) {
-          // food_data.
-        // }
-      // }
-      
       results = [];
       (function iterate_UPC_array(index) {
         if (index === upc_array.length) {
@@ -52,6 +46,10 @@ app.post('/api/v1/detection', function(req, res) {
       res.send(error);
     }
   });
+});
+
+app.get('/', function(req, res) {
+  res.send('Hello World!');
 });
 
 app.listen(app.get('port'), function() {
