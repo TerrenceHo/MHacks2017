@@ -19,3 +19,4 @@ We are proud that we integrated each part that we worked on into one big, workin
 ## What I learned
 Since we all had different experiences, we specialized in certain tasks, depending on our background. Even so, we learned a lot of things from using the APIs, integrating each component of our project into one working product, and working with new technologies.
 ## What's next for NutritionIQ
+We would love to add support for recipe recommendations based on the ingredients that were parsed from the receipt. Also, we could extend our app to be a health-tracker with users' food and nutritional data stored on the server. We could also recommend what foods to buy in order to meet our daily nutritional requirements.
