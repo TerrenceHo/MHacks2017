@@ -27,11 +27,11 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   console.log(gcsname + ";" + file);
 
   const stream = file.createWriteStream({
-    console.log("Creating Stream");
     metadata: {
       contentType: req.file.mimetype
     }
   });
+  console.log("Creating Stream");
 
   stream.on('error', (err) => {
     console.error("Error Stream", err);
@@ -40,7 +40,6 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   });
 
 	stream.on('finish', () => {
-    console.log("Finishing");
     req.file.cloudStorageObject = gcsname;
     req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
     next();
