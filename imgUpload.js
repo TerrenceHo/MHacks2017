@@ -32,25 +32,8 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   //   console.log(files);
   // });
   
-  // gcs.bucket(bucketName).file(gcsname).makePublic()
-  //   .then(() => {
-  //     console.log("Made Public");
-  //   })
-  //   .catch((err) => {
-  //     console.error("ERROR:", err);
-    // });
 
   var file = bucket.file(gcsname);
-  // file.makePublic(function(err, apiResponse){
-  //   console.error("ERROR:", err);
-  //   console.log("apiResponse", apiResponse);
-  // });
-  // ).then(() => {
-  //   console.log("Made Public");
-  // })
-  // .catch(err => {
-  //   console.error("ERROR:", err);
-  // });
 
   console.log(gcsname + ";" + file);
 
