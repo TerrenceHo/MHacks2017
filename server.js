@@ -1,15 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Multer = require('multer');
 
 const gcloud_vision = require('./gcloud_vision.js');
 const image_fileName = 'gs://receipts-bucket/walmart-receipt.jpg';
 const checksum = require('./checksum.js');
 const makeUPC = require('./makeUPC.js');
 const nutritionApi = require('./nutritionApi.js');
+const imgUpload = require('./imgUpload.js');
 
 var app = express();
 app.set('port', (process.env.PORT || 8080));
 app.use(bodyParser());
+
+const multer = Multer({
+  storage: Multer.MemoryStorage,
+  fileSize:5 * 1024 * 1024
+});
 
 app.post('/api/v1/detection', function(req, res) {
   gcloud_vision.parseImage(req.body["image_path"], function(error, data){
@@ -47,6 +54,15 @@ app.post('/api/v1/detection', function(req, res) {
     }
   });
 });
+
+app.post('/api/v1/upload', multer.single('image'), imgUpload.uploadToGcs, function(req, res) {
+  const data = req.body;
+  if (request.file && request.file.cloudStoragePublicURL) {
+    data.imageURL = request.file.cloudStoragePublicURL;
+  }
+  res.send(data)
+});
+
 
 app.get('/', function(req, res) {
   res.send('Hello World!');
