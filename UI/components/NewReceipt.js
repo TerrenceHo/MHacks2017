@@ -5,19 +5,43 @@ import { AppRegistry, Navigator, TouchableOpacity, StyleSheet, Animated, Text, V
 
 export default class NewReceipt extends React.Component{
 	state = {
-
+		image: null
 	}
 
-	_handlePress(){
-
+	_captureImage = async () => {
+		let result = await ImagePicker.launchCameraAsync({		
+	        allowsEditing: true,		
+	        aspect: [16, 9],		
+	    });		
+	 		
+	    if (result.cancelled) {		
+	       return;		
+	    }		
+	    // ImagePicker saves the taken photo to disk and returns a local URI to it		
+	    let localUri = result.uri;		
+	    let filename = localUri.split('/').pop();		
+	 		
+	     // Infer the type of the image		
+	 	let match = /\.(\w+)$/.exec(filename);		
+	 	let type = match ? `image/${match[1]}` : `image`;		
+	 		
+	 	// Upload the image using the fetch and FormData APIs		
+	 	let formData = new FormData();		
+	 	// Assume "photo" is the name of the form field the server expects		
+	 	formData.append('photo', { uri: localUri, name: filename, type });		
+	 		
+	    console.log(formData);		
 	}
-	
+
+
 	render(){
 		return(
-			<View style={styles.receiptBox} onPress={this._handlePress}>
-				<Image source={require('../../assets/icons/add.png')} style={styles.addIcon}/>
-				<Text style={styles.newReceiptText}> Add New Receipt </Text>
-			</View>
+			<TouchableOpacity onPress={this._captureImage}> 
+				<View style={styles.receiptBox}>
+					<Image source={require('../../assets/icons/add.png')} style={styles.addIcon}/>
+					<Text style={styles.newReceiptText}> Add New Receipt </Text>
+				</View>
+			</TouchableOpacity>
 		);
 	}
 
