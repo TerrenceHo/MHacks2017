@@ -24,6 +24,8 @@ ImgUpload.uploadToGcs = (req, res, next) => {
   const gcsname = req.file.originalname;
   const file = bucket.file(gcsname);
 
+  console.log(gcsname + ";" + file);
+
   const stream = file.createWriteStream({
     metadata: {
       contentType: req.file.mimetype
