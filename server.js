@@ -56,17 +56,12 @@ app.post('/api/v1/detection', function(req, res) {
 });
 
 app.post('/api/v1/upload', multer.single('image'), imgUpload.uploadToGcs, function(req, res, next) {
-  // console.log("Req", req);
   const data = req.body;
-  console.log("PublicURL", req.file.cloudStoragePublicURL)
-  console.log("Req.file", req.file);
   if (req.file.cloudStoragePublicURL) {
-    console.log("Req.file", req.file);
     data.imageURL = req.file.cloudStoragePublicURL;
-    console.log("ImageURL", data.imageURL);
   }
 
-  console.log("Data2", data.imageURL);
+  console.log("Data2", data);
   res.send(data)
 });
 
