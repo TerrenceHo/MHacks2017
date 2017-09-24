@@ -25,11 +25,29 @@ app.post('/api/v1/detection', function(req, res) {
         characters = data.responses[0].textAnnotations[i].description;
         array.push(characters);
       }
-      upc = makeUPC.getUPC(array);
-	    for (i = 0; i < upc.length; i++){
-       	nutritionApi.UPCtoCal(upc[i], nutritionApi.infoCallback);
-      }
-      res.send(upc);
+      upc_array = makeUPC.getUPC(array);
+	    // for (i = 0; i < upc_array.length; i++){
+        // nutritionApi.UPCtoCal(upc_array[i], function(food_data, food_error) {
+          // food_data.
+        // }
+      // }
+      
+      results = [];
+      (function iterate_UPC_array(index) {
+        if (index === upc_array.length) {
+          res.send(results);
+          return;
+        }
+        nutritionApi.UPCtoCal(upc_array[index], function(parsed_food, parsed_error) {
+          if (parsed_error != null) {
+            iterate_UPC_array(index+1);
+          } else {
+            results.push(parsed_food);
+            iterate_UPC_array(index+1);
+          }
+        })
+      })(0);
+
     }else{
       res.send(error);
     }

@@ -19,8 +19,8 @@ function UPCtoCal(UPCcode, callback) {
     var options = {
       url: 'https://trackapi.nutritionix.com/v2/search/item?upc=' + UPCcode,
       headers: {
-        'x-app-id': "ce1f6580",
-        'x-app-key': "6e6db97a57d1398e35ed04107d4d6f47"
+        'x-app-id': "4e4a0a3b",
+        'x-app-key': "7061851e70277dc7d7096bb01fdcf0c6"
 	    }
     };
     
@@ -28,21 +28,20 @@ function UPCtoCal(UPCcode, callback) {
 	    request(options, function(error, response, body) {
 	      if(!error && response.statusCode == 200) {
           JSONparsed = (JSON.parse(body))["foods"][0];
-          infoArr = [JSONparsed["food_name"],JSONparsed["nf_calories"],
-            JSONparsed["serving_weight_grams"]];
-          resolve(infoArr);
+          resolve(JSONparsed);
 	      } else {
-          reject("Error from API endpoint");
+          reject(error);
         }
       })
     })
 
     getFromApi
     .then((object) => {
-        callback(object[0],object[1],object[2]);
+        callback(object, null);
     })
     .catch((error) => {
-        console.log(error);
+        callback(null, error);
+        console.log("Error! Endpoint rejected:", error);
     })
 }
 
