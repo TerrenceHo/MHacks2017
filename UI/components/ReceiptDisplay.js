@@ -1,13 +1,44 @@
 import React from 'react';
 import { Button } from 'react-native-elements';
 import { ImagePicker } from 'expo';
-import { AppRegistry, Navigator, TouchableOpacity, StyleSheet, Animated, Text, View, Image } from 'react-native';
+import { AppRegistry, Navigator, ScrollView, TouchableOpacity, StyleSheet, Animated, Text, View, Image } from 'react-native';
 import NewReceipt from './NewReceipt';
 import ExistingReceipts from './ExistingReceipts';
+import ReceiptDetails from './ReceiptDetails';
 
 export default class ReceiptDisplay extends React.Component{
-	state = {
+	constructor(props){
+		super(props);
+		this.state = {
+			receiptsArr: [],
+			detailsPageOpen: false,
+			dateReceipt: '25 Sept 2017',
+			imgURL: null
+		}
+		this.openDetailsClicked = this.openDetailsClicked.bind(this);
+		this.closeDetailsClicked = this.closeDetailsClicked.bind(this);
+		this.addReceipt = this.addReceipt.bind(this);
+		this._handlePress = this._handlePress.bind(this);
+	}
 
+	componentWillMount(){
+		//Mount the state receipt array 
+
+	}
+
+	openDetailsClicked(date, imgURL1){
+		this.setState({dateReceipt: date, imgURL: imgURL1, detailsPageOpen: true});
+
+	}
+
+	closeDetailsClicked(){
+		this.setState({detailsPageOpen: false});
+	}
+
+	addReceipt(receipt){
+		var tempArr = this.state.receiptsArr;
+		tempArr.push(receipt);
+		this.setState({ receiptsArr: tempArr });
 	}
 
 	_handlePress() {
@@ -18,15 +49,28 @@ export default class ReceiptDisplay extends React.Component{
 	}
 
 	render() {
+		const {date, imgURL, detailsPageOpen } = this.state;
+		
+		const detailsNotOpen = ( //crate an array with existingreceipt
+			<ScrollView>
+			  	<ExistingReceipts openDetailsClicked={this.openDetailsClicked}/>
+			  	<ExistingReceipts openDetailsClicked={this.openDetailsClicked}/>
+	   	        <NewReceipt />
+	       	</ScrollView>  
+		);
+
+		const detailsOpen = (
+			<ReceiptDetails imgURL={this.state.imgURL} date={this.state.dateReceipt} closeDetailsClicked={this.closeDetailsClicked} />
+		);
+
 		return(
 		  <View style={styles.container}>
 		  	<Image source={require('../../assets/bg.jpg')} style={styles.backgroundImage} >
 			  	<Text style={styles.receiptHeader}>
 			  		Receipts
 			  	</Text>
-			  	<ExistingReceipts />
-	            <NewReceipt />
-	             
+			  	
+			  	{detailsPageOpen ? detailsOpen : detailsNotOpen}
 	        </Image>
 	      </View>
 		);
@@ -39,6 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'scroll'
   },
   receiptHeader: {
   	textAlign: 'center',

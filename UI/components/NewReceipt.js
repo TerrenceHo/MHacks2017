@@ -43,18 +43,14 @@ export default class NewReceipt extends React.Component{
 	        	'Content-Type': 'multipart/form-data',
 	      	},
 	      	body: imageBody
-	      	}).then(res => res.json()).then(results => {
-	      		console.log("results: " + JSON.parse(results));
-	        	const source = { uri: result.imageUrl, isStatic: true };
-	        	const images = this.state.images;
-	        	images[index] = source;
-	        	this.setState({ images });
+	      	}).then(res => {
+	      		var response = JSON.stringify(res);
+	      		console.log(res._bodyText);
+	      		console.log(res._bodyText["imageURL"]);
+
 	    	}).catch(error => {
 	      	console.error(error);
 	    });
-
-
-
 
 	 	// Upload the image using the fetch and FormData APIs		
 	 	let formData = new FormData();		
