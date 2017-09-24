@@ -3,6 +3,7 @@ import { Button } from 'react-native-elements';
 import { ImagePicker } from 'expo';
 import { AppRegistry, Navigator, TouchableOpacity, StyleSheet, Animated, Text, View, Image } from 'react-native';
 import NewReceipt from './NewReceipt';
+import ExistingReceipts from './ExistingReceipts';
 
 export default class ReceiptDisplay extends React.Component{
 	state = {
@@ -17,17 +18,17 @@ export default class ReceiptDisplay extends React.Component{
 	}
 
 	render() {
-
 		return(
-	  <View style={styles.container}>
-	  	<Image source={require('../../assets/bg.jpg')} style={styles.backgroundImage} >
-		  	<Text style={styles.receiptHeader}>
-		  		Receipts
-		  	</Text>
-             <NewReceipt />
-             
-        </Image>
-      </View>
+		  <View style={styles.container}>
+		  	<Image source={require('../../assets/bg.jpg')} style={styles.backgroundImage} >
+			  	<Text style={styles.receiptHeader}>
+			  		Receipts
+			  	</Text>
+			  	<ExistingReceipts />
+	            <NewReceipt />
+	             
+	        </Image>
+	      </View>
 		);
 	}
 }

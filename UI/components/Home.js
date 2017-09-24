@@ -60,7 +60,7 @@ export default class Home extends React.Component {
       <View style={styles.container}>
         <Image source={require('../../assets/bg1.jpg')} style={styles.backgroundImage} >
            <FadeInView style={{top: '26%'}}>
-             <Text style={styles.text}>GroceryIO</Text>
+             <Text style={styles.text}>FoodIQ</Text>
              <Text style={styles.subTitle}>Because it matters what you eat!</Text>
               <Button
                 onPress={()=>{this.props.navigator.push({id: 2});}}
