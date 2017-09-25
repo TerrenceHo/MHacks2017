@@ -3,6 +3,8 @@ NutritionIQ is a machine-learning based receipt scanner with nutritional informa
 
 Built using the Google Cloud Platform (Storage, Machine-learning, Cloud Vision), Expo.io (React-Native), Node.js, Heroku, and NutritionIX.
 
+![Alt text](./iqimg.jpg?raw=true "NutritionIQ")
+
 ## Inspiration
 We wanted to utilize machine learning in order to get nutritional information from a grocery receipt. We needed an easy way to get relevant nutritional facts about our grocery shopping trips, without having to look everything up individually.
 ## What it does
